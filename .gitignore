@@ -1,0 +1,17 @@
+._*
+.~lock.*
+.buildpath
+.DS_Store
+.idea
+nbproject
+.project
+.settings
+composer.lock
+composer.phar
+_reports
+.lock
+npm-debug.log
+vendor/
+web/assets/vendor/
+cache/*
+log/*

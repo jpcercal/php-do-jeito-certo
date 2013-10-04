@@ -1,0 +1,23 @@
+{
+    "name": "cekurtesistemas/php-do-jeito-certo",
+    "description": "PHP do Jeito Certo",
+    "authors": [
+        {
+            "name": "João Paulo Cercal",
+            "email": "sistemas@cekurte.com",
+            "homepage": "http://sistemas.cekurte.com",
+            "role": "Web Developer"
+        }
+    ],
+    "require": {
+        "silex/silex": "1.*",
+        "twig/twig": ">=1.8,<2.0-dev",
+        "doctrine/dbal": "2.2.*",
+        "monolog/monolog": ">=1.0.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    }
+}
