@@ -67,8 +67,6 @@ class CekurteControllerProvider implements ControllerProviderInterface
 
         $this->shareController($app);
 
-        $this->setControllerName('\\Cekurte\\Controller\\TesteController');
-
         $methods = $this->getMethodsFromController();
 
         if (!empty($methods)) {
