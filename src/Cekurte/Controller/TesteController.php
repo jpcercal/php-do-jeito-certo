@@ -4,12 +4,17 @@ namespace Cekurte\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Cekurte\Model\TesteModel;
 
 class TesteController extends CekurteController
 {
 	public function indexAction(Request $request)
     {
-        return new Response('teste');
+        $contatos = new TesteModel();
+
+        return $this->render('Teste/index.html.twig', array(
+            'contatos' => $contatos->getAll(),
+        ));
     }
 
     public function naoConcordoAction(Request $request)

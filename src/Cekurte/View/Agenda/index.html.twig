@@ -1,0 +1,33 @@
+{% if app.session.has('messages') %}
+    {% for message in app.session.get('messages') %}
+        <div>{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<h1>Lista de Contatos</h1>
+<a href="{{ app.request.baseUrl }}/index.php/agenda/create">Adicionar</a><br />
+<table>
+ 	<thead>
+  		<tr>
+			<th>#</th>
+		   	<th>Nome</th>
+		   	<th>Email</th>
+		   	<th>Telefone</th>
+		   	<th>Ações</th>
+  		</tr>
+ 	</thead>
+ 	<tbody>
+  	{% for contato in contatos %}
+      	<tr>
+       		<td>{{ contato.id }}</td>
+       		<td>{{ contato.nome }}</td>
+       		<td>{{ contato.email }}</td>
+       		<td>{{ contato.telefone }}</td>
+       		<td>
+        		<a href="{{ app.request.baseUrl }}/agenda/create/{{ contato.id }}">Editar</a>
+        		<a href="{{ app.request.baseUrl }}/agenda/delete/{{ contato.id }}">Remover</a>
+       		</td>
+      	</tr>
+  	{% endfor %}
+ 	</tbody>
+</table>

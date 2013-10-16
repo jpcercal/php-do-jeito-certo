@@ -1,0 +1,29 @@
+{% if app.session.has('errors') %}
+    {% for message in app.session.get('errors') %}
+        <div>{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<form action="{{ app.url_generator.generate('cekurte.agenda.create') }}" method="post">
+	<fieldset>
+		<legend>Formulario de Contato</legend>
+			<label for="inputNome">Nome</label>
+			<input type="text" name="nome" id="inputNome" placeholder="Informe o nome" required/>
+			<br />
+			<label>Sexo</label>
+			<select name="sexo">
+				<option value="">Selecione o Sexo</option>
+				{% for row in sexo %}
+				    <option value="{{ row['sigla'] }}">{{ row.nome }}</option>
+				{% endfor %}
+			</select>
+			<br />
+			<label for="inputEmail">Email</label>
+			<input type="email" name="email" id="inputEmail" placeholder="Informe o email" />
+			<br />
+			<label for="inputTelefone">Telefone</label>
+			<input type="text" name="telefone" id="inputTelefone" placeholder="Informe o Telefone" />
+			<br />
+			<input type="submit" value="Salvar" />
+	</fieldset>
+</form>
