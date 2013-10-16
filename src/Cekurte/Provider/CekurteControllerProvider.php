@@ -81,7 +81,7 @@ class CekurteControllerProvider implements ControllerProviderInterface
                     ->match(sprintf('/%s', $route === 'index' ? '' : $route . '/'), function (Request $request) use ($app, $method, $routeName) {
                         return $app[$routeName]->{$method}($request);
                     })
-                    ->bind(sprintf('%s.%s', 'hotsite', $route))
+                    ->bind(sprintf('%s.%s', $this->getRouteNameByController(), $route))
                     ->method('GET|POST')
                 ;
             }
