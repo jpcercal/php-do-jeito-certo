@@ -1,11 +1,9 @@
-{% if app.session.has('messages') %}
-    {% for message in app.session.get('messages') %}
-        <div>{{ message }}</div>
-    {% endfor %}
-{% endif %}
+{% for message in messages %}
+    <div>{{ message }}</div>
+{% endfor %}
 
 <h1>Lista de Contatos</h1>
-<a href="{{ app.request.baseUrl }}/index.php/agenda/create">Adicionar</a><br />
+<a href="{{ app.url_generator.generate('cekurte.agenda.create') }}">Adicionar</a><br />
 <table>
  	<thead>
   		<tr>
@@ -24,8 +22,8 @@
        		<td>{{ contato.email }}</td>
        		<td>{{ contato.telefone }}</td>
        		<td>
-        		<a href="{{ app.request.baseUrl }}/agenda/create/{{ contato.id }}">Editar</a>
-        		<a href="{{ app.request.baseUrl }}/agenda/delete/{{ contato.id }}">Remover</a>
+        		<a href="{{ app.url_generator.generate('cekurte.agenda.update', {'id' : contato.id}) }}">Editar</a>
+        		<a href="{{ app.url_generator.generate('cekurte.agenda.delete', {'id' : contato.id}) }}">Remover</a>
        		</td>
       	</tr>
   	{% endfor %}

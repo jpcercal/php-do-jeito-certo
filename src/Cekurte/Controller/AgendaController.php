@@ -12,37 +12,35 @@ class AgendaController extends CekurteController
 {
     public function indexAction(Request $request)
     {
-        return $this->getApp()->redirect($this->generateUrl('cekurte.agenda.list'));
-    }
-
-    public function listAction(Request $request)
-    {
         $contatos = new AgendaModel();
+
+        $this->getSession()->clear();
 
         return $this->render('Agenda/index.html.twig', array(
             'contatos' => $contatos->getAll(),
+            'messages' => $this->getSession()->has('messages') ? $this->getSession()->get('messages') : array()
         ));
     }
 
     public function createAction(Request $request)
     {
-
         if ($request->getMethod() === 'POST') {
 
             $agenda = new AgendaModel();
 
             if ($agenda->save($request->request->all()) !== false) {
 
-                $this->getSession()->getFlashBag()->add('messages', array('Cadastrado com sucesso!'));
+                $this->getSession()->set('messages', array('Cadastrado com sucesso!'));
 
-                return $this->getApp()->redirect($this->generateUrl('cekurte.agenda.list'));
+                return $this->getApp()->redirect($this->generateUrl('cekurte.agenda.index'));
             }
         }
 
         $sexo = new SexoModel();
 
         return $this->render('Agenda/create.html.twig', array(
-            'sexo'  => $sexo->getAll()
+            'sexo'     => $sexo->getAll(),
+            'messages' => $this->getSession()->has('messages') ? $this->getSession()->get('messages') : array(),
         ));
     }
 

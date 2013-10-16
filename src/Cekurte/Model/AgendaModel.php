@@ -77,7 +77,9 @@ class AgendaModel extends CekurteModel
 
         if (!empty($errors)) {
 
-            $this->getSession()->getFlashBag()->add('errors', $errors);
+        	$this->getSession()->clear();
+
+            $this->getSession()->set('messages', $errors);
 
             return false;
         }
