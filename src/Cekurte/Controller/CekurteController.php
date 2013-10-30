@@ -41,7 +41,7 @@ abstract class CekurteController extends CekurteObject
 
         $view = sprintf('%s/%s/%s',
             $calledClass[0],
-            'view',
+            'View',
             $view
         );
 

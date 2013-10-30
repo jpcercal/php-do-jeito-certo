@@ -2,92 +2,70 @@
 
 namespace Cekurte\Model;
 
-use Silex\Application;
+use Cekurte\Model\CekurteModel;
 
-/**
- * Agenda Model
- *
- * @author João Paulo Cercal <sistemas@cekurte.com>
- * @version 1.0
- */
 class AgendaModel extends CekurteModel
 {
-	private $tableName = 'agenda';
+    /**
+     * @var string
+     */
+    protected $tableName = 'agenda';
 
-	public function get($id)
-	{
-		$sql = sprintf(
-			'SELECT * FROM %s WHERE id = %s',
-			$this->tableName,
-			filter_var($id, FILTER_SANITIZE_NUMBER_INT)
-		);
+    public function getAll()
+    {
+        $dbal = $this->getDatabase();
 
-		$exec = $this->getDatabase()->query($sql);
+        $sql = "SELECT * FROM $this->tableName";
 
-	 	return $exec->fetch();
-	}
+        return $dbal->query($sql)->fetchAll();
+    }
 
-	public function getAll()
-	{
-		$sql = sprintf(
-            'SELECT * FROM %s ORDER BY id ASC',
-            $this->tableName
+    public function save( array $dados )
+    {
+        $error = array();
+
+        if (filter_var($dados['email'], FILTER_VALIDATE_EMAIL) === false) {
+            $error[] = 'Este email não é valido!';
+        }
+
+        if( empty($dados['nome']) ){
+            $error[] = 'O nome é obrigatorio!';
+        }
+
+        $dbal = $this->getDatabase();
+        if( array_key_exists('id', $dados) )
+            $result = $dbal->update($this->tableName,$dados,
+                array('id' => $dados['id'])
+            );
+        else
+            $result = $dbal->insert($this->tableName,$dados);
+
+        if( $result == false )
+            $error[] = 'Problemas ao inserir o contato!';
+
+        return empty($error) ? true : $error;
+    }
+
+    public function getContato( $id )
+    {
+        $dbal = $this->getDatabase();
+
+        $sql = "SELECT * from $this->tableName WHERE id = $id";
+
+        return $dbal->query( $sql )->fetch();
+    }
+
+    public function delete( $id )
+    {
+        return $this->getDatabase()->delete($this->tableName,
+            array('id' => $id)
         );
-
-		$exec = $this->getDatabase()->query($sql);
-
-	 	return $exec->fetchAll();
-	}
-
-	public function delete( $id )
-	{
-		return $this->getDatabase()->delete($this->tableName, array('id' => $id));
-	}
-
-	public function save(array $contato)
-	{
-		$contato = array(
-            'nome'       => filter_var($contato['nome'],     FILTER_SANITIZE_STRING),
-            'telefone'   => filter_var($contato['telefone'], FILTER_SANITIZE_STRING),
-            'sexo_sigla' => filter_var($contato['sexo'],     FILTER_SANITIZE_STRING),
-            'email' 	 => filter_var($contato['email'],    FILTER_SANITIZE_STRING),
-        );
-
-        $errors = array();
-
-        if ($contato['nome'] === false) {
-        	$errors['nome'] = 'O campo nome é obrigatório!';
-        }
-
-        if ($contato['telefone'] === false) {
-        	$errors['telefone'] = 'O campo nome é obrigatório!';
-        }
-
-        if ($contato['sexo_sigla'] === false) {
-        	$errors['sexo_sigla'] = 'O campo nome é obrigatório!';
-        }
-
-        if ($contato['sexo_sigla'] === false) {
-        	$errors['sexo_sigla'] = 'O campo nome é obrigatório!';
-        }
-
-        if (filter_var($contato['email'], FILTER_VALIDATE_EMAIL) === false) {
-            $errors['sexo_sigla'] = 'O campo e-mail não é um e-mail válido!';
-        }
-
-        if (!empty($errors)) {
-
-        	$this->getSession()->clear();
-
-            $this->getSession()->set('messages', $errors);
-
-            return false;
-        }
-
-		if (array_key_exists('id', $contato)) {
-			return $this->getDatabase()->update($this->tableName, $contato);
-		} else {
-			return $this->getDatabase()->insert($this->tableName, $contato);
-		}
-	}
+    }
 }
+
+
+
+
+
+
+

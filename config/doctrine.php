@@ -6,7 +6,7 @@ return array(
         'host'      => 'localhost',
         'dbname'    => 'php_do_jeito_certo',
         'user'      => 'root',
-        'password'  => '',
+        'password'  => 'bin2hex',
         'charset'   => 'utf8',
         'port'      => 3306,
     ),

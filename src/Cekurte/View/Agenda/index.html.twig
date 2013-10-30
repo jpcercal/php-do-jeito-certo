@@ -1,31 +1,45 @@
-{% for message in messages %}
-    <div>{{ message }}</div>
-{% endfor %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Lista de Contatos</title>
+</head>
+<body>
+    <h1>Lista de contatos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Sexo</th>
+                <th>Telefone</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in itens %}
+              <tr>
+                  <td>{{ item.nome }}</td>
+                  <td>{{ item.email }}</td>
+                  <td>{{ item.sexo_sigla }}</td>
+                  <td>{{ item.telefone }}</td>
+                  <td>
+                      <a href="{{ app.url_generator.generate('cekurte.agenda.edit',{'id' : item.id }) }}">Editar</a>
+                      <a href="{{ app.url_generator.generate('cekurte.agenda.delete',{'id' : item.id }) }}">Remover</a>
+                  </td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
 
-<h1>Lista de Contatos</h1>
-<a href="{{ app.url_generator.generate('cekurte.agenda.create') }}">Adicionar</a><br />
-<table>
- 	<thead>
-  		<tr>
-			<th>#</th>
-		   	<th>Nome</th>
-		   	<th>Email</th>
-		   	<th>Telefone</th>
-		   	<th>Ações</th>
-  		</tr>
- 	</thead>
- 	<tbody>
-  	{% for contato in contatos %}
-      	<tr>
-       		<td>{{ contato.id }}</td>
-       		<td>{{ contato.nome }}</td>
-       		<td>{{ contato.email }}</td>
-       		<td>{{ contato.telefone }}</td>
-       		<td>
-        		<a href="{{ app.url_generator.generate('cekurte.agenda.update', {'id' : contato.id}) }}">Editar</a>
-        		<a href="{{ app.url_generator.generate('cekurte.agenda.delete', {'id' : contato.id}) }}">Remover</a>
-       		</td>
-      	</tr>
-  	{% endfor %}
- 	</tbody>
-</table>
+
+
+
+
+
+
+
+
+

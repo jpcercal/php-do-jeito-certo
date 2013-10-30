@@ -5,59 +5,108 @@ namespace Cekurte\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use Cekurte\Model\SexoModel;
 use Cekurte\Model\AgendaModel;
 
 class AgendaController extends CekurteController
 {
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-        $contatos = new AgendaModel();
+
+        $agendaModel = new AgendaModel();
+
+        $messages   =   $this->getSession()->get('messages');
 
         $this->getSession()->clear();
 
-        return $this->render('Agenda/index.html.twig', array(
-            'contatos' => $contatos->getAll(),
-            'messages' => $this->getSession()->has('messages') ? $this->getSession()->get('messages') : array()
-        ));
+        return $this->render(
+            'Agenda/index.html.twig',array(
+                'itens'     =>  $agendaModel->getAll(),
+                'messages'  =>  $messages
+            )
+        );
     }
 
     public function createAction(Request $request)
     {
         if ($request->getMethod() === 'POST') {
 
-            $agenda = new AgendaModel();
+            $agendaModel = new AgendaModel();
 
-            if ($agenda->save($request->request->all()) !== false) {
+            $result = $agendaModel->save($request->request->all());
 
-                $this->getSession()->set('messages', array('Cadastrado com sucesso!'));
+            if( $result === true ){
 
-                return $this->getApp()->redirect($this->generateUrl('cekurte.agenda.index'));
+                $this->getSession()
+                     ->set('messages', array('Cadastrado com sucesso!'));
+            }else{
+                $this->getSession()
+                     ->set('messages', $result);
             }
+
+            return $this->getApp()->redirect(
+                $this->generateUrl('cekurte.agenda.index')
+            );
+
+        }else{
+            return $this->render('Agenda/create.html.twig', array());
         }
 
-        $sexo = new SexoModel();
-
-        return $this->render('Agenda/create.html.twig', array(
-            'sexo'     => $sexo->getAll(),
-            'messages' => $this->getSession()->has('messages') ? $this->getSession()->get('messages') : array(),
-        ));
     }
 
-    public function retrieveAction(Request $request)
+    public function editAction( Request $request )
     {
-        $agenda = new AgendaModel();
+        $agendaModel    =   new AgendaModel();
 
-        var_dump($agenda->get($request->get('id')));
+        if( $request->getMethod() === 'POST' ){
+
+            $result = $agendaModel->save($request->request->all());
+
+            if( $result === true ){
+
+                $this->getSession()
+                     ->set('messages', array('Atualizado com sucesso!'));
+            }else{
+                $this->getSession()
+                     ->set('messages', $result);
+            }
+
+            return $this->getApp()->redirect(
+                $this->generateUrl('cekurte.agenda.index')
+            );
+        }else{
+
+            $id = (int) $request->get('id');
+
+            $contato = $agendaModel->getContato( $id );
+
+            return $this->render('Agenda/create.html.twig',array(
+                'contato'   =>  $contato
+            ));
+        }
     }
 
-    public function updateAction(Request $request)
+    public function deleteAction( Request $request )
     {
+        $agendaModel = new AgendaModel();
 
-    }
+        $agendaModel->delete( $request->get('id') );
 
-    public function deleteAction(Request $request)
-    {
-
+        return $this->getApp()->redirect(
+            $this->generateUrl('cekurte.agenda.index')
+        );
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

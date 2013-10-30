@@ -1,27 +1,35 @@
-{% for message in messages %}
-    <div>{{ message }}</div>
-{% endfor %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulario</title>
+    <style type="text/css">
+        input[type="text"],input[type="email"]{
+            background : #000;
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+    <form action="{{ app.url_generator.generate('cekurte.agenda.create') }}" method="post">
+        <label for="inputNome">Nome</label>
+        <input type="text" id="inputNome" name="nome"
+            placeholder="Digite seu nome:" required value="{{ contato.nome }}"/>
+        <br />
+        <label for="inputEmail">Email</label>
+        <input type="email" id="inputEmail" name="email"
+            placeholder="Digite seu email" value="{{ contato.email }}"/>
+        <br />
+        <label for="inputTelefone">Telefone</label>
+        <input type="text" id="inputTelefone" name="telefone"
+            placeholder="Digite seu telefone" value="{{ contato.telefone }}"/>
+        <br />
+        <label for="inputSexo">Sexo</label>
+        <input type="radio" value="F" name="sexo_sigla" {% if contato.sexo_sigla == 'F' %}checked{% endif %} /> Feminino <br />
+        <input type="radio" value="M" name="sexo_sigla" {% if contato.sexo_sigla == 'M' %}checked{% endif %}/> Masculino <br />
 
-<form action="{{ app.url_generator.generate('cekurte.agenda.create') }}" method="post">
-	<fieldset>
-		<legend>Formulario de Contato</legend>
-		<label for="inputNome">Nome</label>
-		<input type="text" name="nome" id="inputNome" placeholder="Informe o nome" required/>
-		<br />
-		<label>Sexo</label>
-		<select name="sexo">
-			<option value="">Selecione o Sexo</option>
-			{% for row in sexo %}
-			    <option value="{{ row['sigla'] }}">{{ row.nome }}</option>
-			{% endfor %}
-		</select>
-		<br />
-		<label for="inputEmail">Email</label>
-		<input type="email" name="email" id="inputEmail" placeholder="Informe o email" />
-		<br />
-		<label for="inputTelefone">Telefone</label>
-		<input type="text" name="telefone" id="inputTelefone" placeholder="Informe o Telefone" />
-		<br />
-		<input type="submit" value="Salvar" />
-	</fieldset>
-</form>
+        <input type="hidden" name="id" value="{{ contato.id }}" />
+
+        <input type="submit" value="Enviar" id="inputSubmit" />
+    </form>
+</body>
+</html>
