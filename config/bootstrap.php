@@ -68,10 +68,7 @@ $app->error(function(\Exception $e, $code) use ($app) {
 // -----------------------------------------------------------------
 // Cria as rotas da aplicação
 
-$app->mount('/', new Cekurte\Provider\CekurteControllerProvider('\\Cekurte\\Controller\\TesteController'));
-
-$app->mount('/agenda/', new Cekurte\Provider\CekurteControllerProvider('\\Cekurte\\Controller\\AgendaController'
-));
+$app->mount('/', new Cekurte\Provider\CekurteControllerProvider('\\Cekurte\\Controller\\AgendaController'));
 
 // -----------------------------------------------------------------
 // Inicia a aplicação

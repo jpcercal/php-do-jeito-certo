@@ -1,27 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Formulario</title>
-    <style type="text/css">
-        input[type="text"],input[type="email"]{
-            background : #000;
-            color:#fff;
-        }
-    </style>
+    <meta charset="utf-8" />
+    <title>Formulário</title>
 </head>
 <body>
+    <a href="{{ app.url_generator.generate('cekurte.agenda.index') }}">Voltar</a>
     <form action="{{ app.url_generator.generate('cekurte.agenda.create') }}" method="post">
         <label for="inputNome">Nome</label>
-        <input type="text" id="inputNome" name="nome"
-            placeholder="Digite seu nome:" required value="{{ contato.nome }}"/>
+        <input type="text" id="inputNome" name="nome" placeholder="Digite seu nome:" required value="{{ contato.nome }}"/>
         <br />
         <label for="inputEmail">Email</label>
-        <input type="email" id="inputEmail" name="email"
-            placeholder="Digite seu email" value="{{ contato.email }}"/>
+        <input type="email" id="inputEmail" name="email" placeholder="Digite seu email" value="{{ contato.email }}"/>
         <br />
         <label for="inputTelefone">Telefone</label>
-        <input type="text" id="inputTelefone" name="telefone"
-            placeholder="Digite seu telefone" value="{{ contato.telefone }}"/>
+        <input type="text" id="inputTelefone" name="telefone" placeholder="Digite seu telefone" value="{{ contato.telefone }}"/>
         <br />
         <label for="inputSexo">Sexo</label>
         <input type="radio" value="F" name="sexo_sigla" {% if contato.sexo_sigla == 'F' %}checked{% endif %} /> Feminino <br />

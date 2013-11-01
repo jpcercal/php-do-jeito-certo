@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>Lista de contatos</h1>
+    <a href="{{ app.url_generator.generate('cekurte.agenda.create') }}">Adicionar</a>
     <table>
         <thead>
             <tr>
@@ -24,7 +25,7 @@
                   <td>{{ item.sexo_sigla }}</td>
                   <td>{{ item.telefone }}</td>
                   <td>
-                      <a href="{{ app.url_generator.generate('cekurte.agenda.edit',{'id' : item.id }) }}">Editar</a>
+                      <a href="{{ app.url_generator.generate('cekurte.agenda.update',{'id' : item.id }) }}">Editar</a>
                       <a href="{{ app.url_generator.generate('cekurte.agenda.delete',{'id' : item.id }) }}">Remover</a>
                   </td>
               </tr>
@@ -33,13 +34,3 @@
     </table>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-

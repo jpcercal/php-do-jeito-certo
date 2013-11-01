@@ -3,8 +3,8 @@
 namespace Cekurte\Controller;
 
 use Silex\Application;
-use Cekurte\Util\CekurteObject;
 use Symfony\Component\HttpFoundation\Response;
+use Cekurte\Util\CekurteObject;
 
 /**
  * Base Controller
