@@ -29,3 +29,9 @@ CREATE  TABLE IF NOT EXISTS `php_do_jeito_certo`.`agenda` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- INSERT `php_do_jeito_certo`.`sexo`
+-- -----------------------------------------------------
+INSERT INTO `php_do_jeito_certo`.`sexo` (`sigla`, `nome`) VALUES ('F', 'Feminino');
+INSERT INTO `php_do_jeito_certo`.`sexo` (`sigla`, `nome`) VALUES ('M', 'Masculino');
