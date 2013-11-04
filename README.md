@@ -8,21 +8,9 @@ O minicurso ocorreu nos dias 19, 20, 21 e 22 de outubro na data onde foi pratica
 Gerenciando as dependências do Projeto
 ----------------------------------
 
-### Instalando/Atualizando (*vendors* ou *bibliotecas de terceiros*)
-
-Assumimos que você já possua o *composer* e o *bower* instalados no seu sistema operacional.
-
-Entre no diretório raiz do projeto e execute:
-
-    php composer.phar install
-
-Agora, vamos realizar a instalação dos recursos web, sendo assim, digite o seguinte comando:
-
-    bower install
-
 ### Cache e Log
 
-Precisamos agora criar o diretório de logs e cache, para isso entre no diretório raíz do projeto pelo terminal e execute os seguintes comandos:
+Precisamos agora criar o diretório de logs e cache, para isso entre no diretório raiz do projeto pelo terminal e execute os seguintes comandos:
 
     mkdir cache
     mkdir logs
@@ -33,10 +21,17 @@ Em seguida crie o arquivo de log, com o seguinte comando:
 
 ### Permissão
 
-Vamos dar permissão total (777) para os seguintes diretórios, afim de permitir o uso de cache e logs da aplicação. Sendo assim, rode o seguinte comando no terminal:
+Vamos dar permissão total e recursiva (777) para o diretório raiz, afim de permitir o uso de cache, logs e instalação das bibliotecas de terceiros da aplicação. Sendo assim, rode o seguinte comando no terminal:
 
-    chmod -Rf 777 cache/
-    chmod -Rf 777 logs/
+    chmod -Rf 777 ./
+
+### Instalando/Atualizando (*vendors* ou *bibliotecas de terceiros*)
+
+Assumimos que você já possua o *composer* instalado no seu sistema operacional.
+
+Entre no diretório raiz do projeto e execute:
+
+    php composer.phar install
 
 ### Instalando o banco de dados
 
